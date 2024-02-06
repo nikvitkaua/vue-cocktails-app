@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import AppLayout from '../components/AppLayout.vue'
 import CocktailThumb from '../components/CocktailThumb.vue'
 import { useRootStore } from '@/stores/root'
@@ -8,25 +7,30 @@ import { storeToRefs } from 'pinia'
 const rootStore = useRootStore()
 rootStore.getIngredients()
 
-const { ingredients, cocktails } = storeToRefs(rootStore)
-const ingredient = ref(null)
+const { ingredients, ingredient, cocktails } = storeToRefs(rootStore)
 
 function getCocktails() {
-  rootStore.getCocktails(ingredient.value)
+  rootStore.getCocktails(rootStore.ingredient)
+}
+
+function removeIngredient() {
+  rootStore.setIngredient(null)
 }
 </script>
 
 <template>
-  <AppLayout imgUrl="/src/assets/img/bg-1.jpg" >
+  <AppLayout imgUrl="/src/assets/img/bg-1.jpg" :backFunc="removeIngredient" :isBackBtnVisible="!!ingredient" >
     <div class="wrapper">
       <div v-if="!ingredient || !cocktails" class="info">
         <div class="title">Choose your drink</div>
         <div class="line"></div>
         <div class="select-wrapper">
           <el-select
-            v-model="ingredient"
+            v-model="rootStore.ingredient"
             placeholder="Choose main ingredient"
             size="large"
+            filterable
+            allow-create
             class="select"
             @change="getCocktails"
           >
@@ -58,15 +62,6 @@ function getCocktails() {
 <style lang="sass" scoped>
 @import '../assets/styles/main'
 
-.wrapper
-  display: flex
-  justify-content: center
-  align-items: center
-
-.info
-  padding: 80px 0
-  text-align: center
-
 .select-wrapper
   padding-top: 50px
 
@@ -86,7 +81,6 @@ function getCocktails() {
 
 .cocktails 
   display: flex
-  justify-content: space-between
   flex-wrap: wrap
   max-height: 500px
   overflow-y: auto
