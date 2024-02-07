@@ -68,6 +68,7 @@ getCocktail();
 
 .slider
   padding: 50px 0
+  cursor: grab
 
 .swiper
   max-width: 400px
