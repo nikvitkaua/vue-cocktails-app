@@ -98,4 +98,10 @@ function removeIngredient() {
     background-color: $accent
     border-radius: 20px
     border: 3px solid $accent
+
+@media(max-width: 527px)
+  .cocktails
+    display: grid
+    grid-template-columns: auto
+    justify-content: center
 </style>

@@ -43,4 +43,11 @@ const props = defineProps({
   text-overflow: ellipsis
   padding-top: 15px
   letter-spacing: 0.1em
+
+@media (max-width: 527px)
+  .root
+    display: flex
+    justify-content: center 
+    width: 100%
+    margin-right: 0
 </style>
