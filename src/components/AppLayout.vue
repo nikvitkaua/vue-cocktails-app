@@ -106,6 +106,6 @@ function goBack() {
     flex-direction: column 
     justify-content: center
     width: 100%
-    
+
 
 </style>
